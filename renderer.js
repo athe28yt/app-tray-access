@@ -24,6 +24,8 @@ const confirmOk = document.getElementById('confirmOk');
 const diagnosticMeta = document.getElementById('diagnosticMeta');
 const diagnosticList = document.getElementById('diagnosticList');
 const refreshDiagnostic = document.getElementById('refreshDiagnostic');
+const checkUpdates = document.getElementById('checkUpdates');
+const updateStatus = document.getElementById('updateStatus');
 const chromeCache = document.getElementById('chromeCache');
 const chromeGpuCache = document.getElementById('chromeGpuCache');
 const chromeServiceWorker = document.getElementById('chromeServiceWorker');
@@ -43,6 +45,7 @@ let confirmResolve = null;
 let diagnostic = null;
 let outputVisible = false;
 let chromeProfileList = [];
+let updateState = 'idle';
 
 function openModal(title, value) {
   modalTitle.textContent = title;
@@ -165,6 +168,44 @@ function applyTheme(theme) {
   const nextTheme = theme === 'dark' ? 'dark' : 'light';
   document.body.setAttribute('data-theme', nextTheme);
   themeToggle.textContent = nextTheme === 'dark' ? 'Modo oscuro' : 'Modo claro';
+}
+
+function setUpdateStatus(state, detail) {
+  updateState = state || 'idle';
+  switch (state) {
+    case 'checking':
+      updateStatus.textContent = 'Verificando...';
+      checkUpdates.textContent = 'Verificando';
+      break;
+    case 'available':
+      updateStatus.textContent = 'Actualizacion disponible';
+      checkUpdates.textContent = 'Actualizar';
+      break;
+    case 'downloading':
+      updateStatus.textContent = `Descargando ${detail || 0}%`;
+      checkUpdates.textContent = 'Descargando';
+      break;
+    case 'downloaded':
+      updateStatus.textContent = 'Actualizacion lista';
+      checkUpdates.textContent = 'Reiniciar y actualizar';
+      break;
+    case 'latest':
+      updateStatus.textContent = 'Ya tienes la ultima version';
+      checkUpdates.textContent = 'Verificar version';
+      break;
+    case 'dev':
+      updateStatus.textContent = 'Disponible solo en produccion';
+      checkUpdates.textContent = 'Verificar version';
+      break;
+    case 'error':
+      updateStatus.textContent = `Error: ${detail || ''}`.trim();
+      checkUpdates.textContent = 'Verificar version';
+      break;
+    default:
+      updateStatus.textContent = '—';
+      checkUpdates.textContent = 'Verificar version';
+      break;
+  }
 }
 
 function renderMaintenance() {
@@ -458,6 +499,8 @@ window.api.onMenuAction(async ({ action, index }) => {
   renderChromeProfiles();
   refreshChromeStatus();
   setActiveTab('shortcuts');
+  const updateInit = await window.api.checkUpdates();
+  if (updateInit && updateInit.state) setUpdateStatus(updateInit.state);
 })();
 
 keepInTrayToggle.addEventListener('change', async () => {
@@ -469,6 +512,18 @@ themeToggle.addEventListener('click', async () => {
   settings.theme = settings.theme === 'dark' ? 'light' : 'dark';
   applyTheme(settings.theme);
   await window.api.saveSettings(settings);
+});
+
+checkUpdates.addEventListener('click', async () => {
+  if (updateState === 'downloaded') {
+    const ok = await openConfirm('Hay una actualizacion lista. Se reiniciara la app para instalarla. Continuar?');
+    if (!ok) return;
+    await window.api.installUpdate();
+    return;
+  }
+
+  const result = await window.api.checkUpdates();
+  if (result && result.state) setUpdateStatus(result.state);
 });
 
 tabShortcuts.addEventListener('click', () => setActiveTab('shortcuts'));
@@ -504,6 +559,10 @@ window.api.onMaintenanceOutput(({ type, data }) => {
   }
   maintenanceOutput.scrollTop = maintenanceOutput.scrollHeight;
   showOutput(true);
+});
+
+window.api.onUpdateStatus(({ state, percent, message }) => {
+  setUpdateStatus(state, percent || message);
 });
 
 function updateChromeWarning() {

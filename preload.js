@@ -17,6 +17,9 @@ contextBridge.exposeInMainWorld('api', {
   runChromeCleanup: (options) => ipcRenderer.send('run-chrome-cleanup', options),
   getChromeProfiles: () => ipcRenderer.invoke('get-chrome-profiles'),
   isChromeRunning: () => ipcRenderer.invoke('is-chrome-running'),
+  checkUpdates: () => ipcRenderer.invoke('check-updates'),
+  installUpdate: () => ipcRenderer.invoke('install-update'),
+  onUpdateStatus: (cb) => ipcRenderer.on('update-status', (_evt, payload) => cb(payload)),
   showItemMenu: (index) => ipcRenderer.invoke('show-item-menu', index),
   onMenuAction: (cb) => ipcRenderer.on('menu-action', (_evt, payload) => cb(payload))
 });

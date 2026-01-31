@@ -561,6 +561,37 @@ app.whenReady().then(() => {
   if (app.isPackaged) {
     autoUpdater.checkForUpdatesAndNotify();
   }
+
+  autoUpdater.on('checking-for-update', () => {
+    if (mainWindow) mainWindow.webContents.send('update-status', { state: 'checking' });
+  });
+  autoUpdater.on('update-available', () => {
+    if (mainWindow) mainWindow.webContents.send('update-status', { state: 'available' });
+  });
+  autoUpdater.on('update-not-available', () => {
+    if (mainWindow) mainWindow.webContents.send('update-status', { state: 'latest' });
+  });
+  autoUpdater.on('error', (err) => {
+    if (mainWindow) mainWindow.webContents.send('update-status', { state: 'error', message: String(err) });
+  });
+  autoUpdater.on('download-progress', (progress) => {
+    if (mainWindow) mainWindow.webContents.send('update-status', { state: 'downloading', percent: Math.round(progress.percent) });
+  });
+  autoUpdater.on('update-downloaded', () => {
+    if (mainWindow) mainWindow.webContents.send('update-status', { state: 'downloaded' });
+  });
+
+  ipcMain.handle('check-updates', () => {
+    if (!app.isPackaged) return { state: 'dev' };
+    autoUpdater.checkForUpdates();
+    return { state: 'checking' };
+  });
+
+  ipcMain.handle('install-update', () => {
+    if (!app.isPackaged) return { state: 'dev' };
+    autoUpdater.quitAndInstall();
+    return { state: 'installing' };
+  });
 });
 
 app.on('will-quit', () => {
