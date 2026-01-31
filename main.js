@@ -13,6 +13,17 @@ const TOP_TRAY_MOST_USED = 2;
 const TOP_TRAY_RECENT = 1;
 const DIAGNOSTIC_INTERVAL_MS = 6 * 60 * 60 * 1000;
 
+const gotLock = app.requestSingleInstanceLock();
+if (!gotLock) {
+  app.quit();
+} else {
+  app.on('second-instance', () => {
+    app.isQuiting = true;
+    app.relaunch();
+    app.quit();
+  });
+}
+
 const maintenanceActions = [
   {
     id: 'cleanmgr_basic',
@@ -589,6 +600,10 @@ app.whenReady().then(() => {
 
   ipcMain.handle('install-update', () => {
     if (!app.isPackaged) return { state: 'dev' };
+    app.isQuiting = true;
+    if (mainWindow) {
+      mainWindow.destroy();
+    }
     autoUpdater.quitAndInstall();
     return { state: 'installing' };
   });
@@ -602,4 +617,8 @@ app.on('window-all-closed', (e) => {
   if (settings && settings.keepInTray) {
     e.preventDefault();
   }
+});
+
+app.on('before-quit', () => {
+  app.isQuiting = true;
 });
