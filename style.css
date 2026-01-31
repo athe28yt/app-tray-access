@@ -34,7 +34,7 @@ body[data-theme='dark'] {
 
 body {
   margin: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "IBM Plex Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: var(--bg);
   color: var(--text);
 }
@@ -121,13 +121,22 @@ h1 {
 }
 
 main {
-  padding: 16px 20px;
+  padding: 24px 20px 32px;
+}
+
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .tabs {
   display: flex;
   gap: 8px;
   margin-bottom: 12px;
+  justify-content: center;
 }
 
 .tab {
@@ -136,6 +145,7 @@ main {
   padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
+  min-width: 140px;
 }
 
 .tab.active {
@@ -145,6 +155,8 @@ main {
 
 .settings {
   margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
 }
 
 .toggle {
@@ -378,8 +390,9 @@ main {
 
 .chrome-options {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px 12px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, max-content));
+  gap: 8px 16px;
+  justify-content: center;
 }
 
 .chrome-profiles {
@@ -395,8 +408,9 @@ main {
 
 .profiles-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px 12px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
+  gap: 8px 16px;
+  justify-content: center;
 }
 
 .chrome-warning {
@@ -413,6 +427,7 @@ main {
   align-items: center;
   gap: 10px;
   font-size: 13px;
+  width: fit-content;
 }
 
 .switch input {

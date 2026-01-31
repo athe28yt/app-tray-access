@@ -28,89 +28,91 @@
   </header>
 
   <main>
-    <nav class="tabs">
-      <button id="tabShortcuts" class="tab active">Accesos</button>
-      <button id="tabMaintenance" class="tab">Mantenimiento</button>
-    </nav>
-    <section class="settings">
-      <label class="switch">
-        <input id="keepInTrayToggle" type="checkbox" />
-        <span class="slider"></span>
-        <span>Mantener en segundo plano (bandeja)</span>
-      </label>
-    </section>
-    <section id="shortcutsPanel">
-      <ul id="list"></ul>
-    </section>
-    <section id="maintenancePanel" class="hidden">
-      <div class="diagnostic-card">
-        <div class="output-header">
-          <div>Diagnostico</div>
-          <button id="refreshDiagnostic" class="run-btn">Actualizar</button>
-        </div>
-        <div id="diagnosticMeta" class="diagnostic-meta"></div>
-        <ul id="diagnosticList" class="diagnostic-list"></ul>
-      </div>
-      <div class="chrome-card">
-        <div class="output-header">
-          <div>Limpiar Chrome</div>
-        </div>
-        <div class="chrome-profiles">
-          <div class="profiles-title">Perfiles</div>
-          <div id="chromeProfiles" class="profiles-list"></div>
-          <div id="chromeRunningWarn" class="chrome-warning hidden">
-            Chrome esta en ejecucion. Cierra Chrome para mejores resultados.
+    <div class="container">
+      <nav class="tabs">
+        <button id="tabShortcuts" class="tab active">Accesos</button>
+        <button id="tabMaintenance" class="tab">Mantenimiento</button>
+      </nav>
+      <section class="settings">
+        <label class="switch">
+          <input id="keepInTrayToggle" type="checkbox" />
+          <span class="slider"></span>
+          <span>Mantener en segundo plano (bandeja)</span>
+        </label>
+      </section>
+      <section id="shortcutsPanel">
+        <ul id="list"></ul>
+      </section>
+      <section id="maintenancePanel" class="hidden">
+        <div class="diagnostic-card">
+          <div class="output-header">
+            <div>Diagnostico</div>
+            <button id="refreshDiagnostic" class="run-btn">Actualizar</button>
           </div>
+          <div id="diagnosticMeta" class="diagnostic-meta"></div>
+          <ul id="diagnosticList" class="diagnostic-list"></ul>
         </div>
-        <div class="chrome-options">
-          <label class="switch">
-            <input id="chromeCache" type="checkbox" checked />
-            <span class="slider"></span>
-            <span>Cache y Code Cache</span>
-          </label>
-          <label class="switch">
-            <input id="chromeGpuCache" type="checkbox" checked />
-            <span class="slider"></span>
-            <span>GPUCache y Media Cache</span>
-          </label>
-          <label class="switch">
-            <input id="chromeServiceWorker" type="checkbox" checked />
-            <span class="slider"></span>
-            <span>Service Worker / CacheStorage</span>
-          </label>
-          <label class="switch">
-            <input id="chromeCookies" type="checkbox" checked />
-            <span class="slider"></span>
-            <span>Cookies</span>
-          </label>
-          <label class="switch">
-            <input id="chromeHistory" type="checkbox" checked />
-            <span class="slider"></span>
-            <span>Historial</span>
-          </label>
-          <label class="switch">
-            <input id="chromeSessions" type="checkbox" checked />
-            <span class="slider"></span>
-            <span>Sesiones (pestanas abiertas)</span>
-          </label>
-        </div>
-        <div id="chromeWarning" class="chrome-warning hidden">
-          Aviso: limpiar sesiones puede cerrar sesion en sitios y perder pestanas abiertas.
-        </div>
-        <button id="runChromeCleanup" class="run-btn">Limpiar Chrome</button>
-      </div>
-      <div id="maintenanceList" class="maintenance-list"></div>
-      <div class="maintenance-output hidden" id="maintenanceOutputWrap">
-        <div class="output-header">
-          <div>Salida</div>
-          <div class="output-actions">
-            <button id="toggleOutput" class="run-btn">Mostrar salida</button>
-            <button id="clearOutput" class="run-btn">Limpiar</button>
+        <div class="chrome-card">
+          <div class="output-header">
+            <div>Limpiar Chrome</div>
           </div>
+          <div class="chrome-profiles">
+            <div class="profiles-title">Perfiles</div>
+            <div id="chromeProfiles" class="profiles-list"></div>
+            <div id="chromeRunningWarn" class="chrome-warning hidden">
+              Chrome esta en ejecucion. Cierra Chrome para mejores resultados.
+            </div>
+          </div>
+          <div class="chrome-options">
+            <label class="switch">
+              <input id="chromeCache" type="checkbox" checked />
+              <span class="slider"></span>
+              <span>Cache y Code Cache</span>
+            </label>
+            <label class="switch">
+              <input id="chromeGpuCache" type="checkbox" checked />
+              <span class="slider"></span>
+              <span>GPUCache y Media Cache</span>
+            </label>
+            <label class="switch">
+              <input id="chromeServiceWorker" type="checkbox" checked />
+              <span class="slider"></span>
+              <span>Service Worker / CacheStorage</span>
+            </label>
+            <label class="switch">
+              <input id="chromeCookies" type="checkbox" checked />
+              <span class="slider"></span>
+              <span>Cookies</span>
+            </label>
+            <label class="switch">
+              <input id="chromeHistory" type="checkbox" checked />
+              <span class="slider"></span>
+              <span>Historial</span>
+            </label>
+            <label class="switch">
+              <input id="chromeSessions" type="checkbox" checked />
+              <span class="slider"></span>
+              <span>Sesiones (pestanas abiertas)</span>
+            </label>
+          </div>
+          <div id="chromeWarning" class="chrome-warning hidden">
+            Aviso: limpiar sesiones puede cerrar sesion en sitios y perder pestanas abiertas.
+          </div>
+          <button id="runChromeCleanup" class="run-btn">Limpiar Chrome</button>
         </div>
-        <pre id="maintenanceOutput" class="output-box"></pre>
-      </div>
-    </section>
+        <div id="maintenanceList" class="maintenance-list"></div>
+        <div class="maintenance-output hidden" id="maintenanceOutputWrap">
+          <div class="output-header">
+            <div>Salida</div>
+            <div class="output-actions">
+              <button id="toggleOutput" class="run-btn">Mostrar salida</button>
+              <button id="clearOutput" class="run-btn">Limpiar</button>
+            </div>
+          </div>
+          <pre id="maintenanceOutput" class="output-box"></pre>
+        </div>
+      </section>
+    </div>
   </main>
 
   <div id="modal" class="hidden">
