@@ -15,13 +15,15 @@
     "electron-builder": "^24.13.3"
   },
   "dependencies": {
-    "electron-updater": "^6.1.8"
+    "electron-updater": "^6.7.3"
   },
   "build": {
     "appId": "com.shortcut.tray",
     "productName": "shortcut-tray",
+    "icon": "build/icon.ico",
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "build/icon.ico"
     },
     "publish": [
       {
