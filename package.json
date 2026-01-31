@@ -1,6 +1,6 @@
 {
   "name": "shortcut-tray",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Tray app for managing shortcuts",
   "main": "main.js",
   "author": "",
@@ -27,10 +27,10 @@
     },
     "publish": [
       {
-        "provider": "github"
+        "provider": "github",
+        "releaseType": "release"
       }
     ]
   }
 }
-
 
