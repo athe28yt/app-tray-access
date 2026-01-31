@@ -1,0 +1,32 @@
+{
+  "name": "shortcut-tray",
+  "version": "1.0.0",
+  "description": "Tray app for managing shortcuts",
+  "main": "main.js",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "dependencies": {
+    "electron-updater": "^6.1.8"
+  },
+  "build": {
+    "appId": "com.shortcut.tray",
+    "productName": "shortcut-tray",
+    "win": {
+      "target": "nsis"
+    },
+    "publish": [
+      {
+        "provider": "github"
+      }
+    ]
+  }
+}
