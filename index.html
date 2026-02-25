@@ -4,27 +4,74 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Accesos Directos</title>
+  <title data-i18n="app.title">Accesos Directos</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
     <div class="brand">
-      <h1>Mis accesos</h1>
-      <p>Abre programas, carpetas y enlaces en un clic.</p>
+      <h1 data-i18n="html.brand.title">Mis accesos</h1>
+      <p data-i18n="html.brand.subtitle">Abre programas, carpetas y enlaces en un clic.</p>
     </div>
     <div class="header-actions">
-      <button id="themeToggle" class="run-btn" title="Cambiar tema">Tema</button>
+      <button id="themeToggle" class="run-btn" title="Cambiar entre modo claro y oscuro" data-i18n="html.header.theme" data-i18n-title="html.header.themeTitle">Tema</button>
+      <div class="settings-wrap">
+        <button id="settingsMenuToggle" class="run-btn settings-gear" type="button" title="Abrir ajustes de la aplicacion" aria-expanded="false" data-i18n-title="html.header.settingsTitle">
+          <span class="gear-icon" aria-hidden="true">&#9881;</span>
+          <span data-i18n="html.header.settings">Ajustes</span>
+        </button>
+        <div id="settingsMenu" class="settings-menu hidden">
+          <div class="settings-title" data-i18n="html.header.settingsPanelTitle">Ajustes de la aplicacion</div>
+          <section class="settings">
+            <label class="switch">
+              <input id="keepInTrayToggle" type="checkbox" />
+              <span class="slider"></span>
+              <span data-i18n="html.settings.keepInTray">Dejar la app activa en segundo plano</span>
+            </label>
+            <label class="switch" title="Abre esta app automaticamente cuando enciendes Windows." data-i18n-title="html.settings.startWithWindowsTitle">
+              <input id="startWithWindowsToggle" type="checkbox" />
+              <span class="slider"></span>
+              <span data-i18n="html.settings.startWithWindows">Abrir al encender la PC</span>
+            </label>
+            <label class="switch">
+              <input id="autoUpdateToggle" type="checkbox" />
+              <span class="slider"></span>
+              <span data-i18n="html.settings.autoUpdate">Actualizar automaticamente</span>
+            </label>
+            <label class="switch">
+              <input id="notificationsToggle" type="checkbox" />
+              <span class="slider"></span>
+              <span data-i18n="html.settings.notifications">Mostrar notificaciones</span>
+            </label>
+            <label class="switch">
+              <input id="advancedModeToggle" type="checkbox" />
+              <span class="slider"></span>
+              <span data-i18n="html.settings.advancedMode">Modo avanzado</span>
+            </label>
+          </section>
+          <button
+            id="clearAppCacheBtn"
+            class="run-btn settings-danger-btn hidden"
+            type="button"
+            title="Borrar cache y datos locales de la app (solo modo avanzado)"
+            data-i18n="html.settings.clearAppCache"
+            data-i18n-title="html.settings.clearAppCacheTitle"
+          >
+            Limpiar cache de la app
+          </button>
+          <div class="settings-tip" data-i18n="html.header.settingsTip">Puedes cambiar estos ajustes cuando quieras.</div>
+        </div>
+      </div>
       <div class="update-wrap">
-        <button id="checkUpdates" class="run-btn" title="Buscar actualizaciones">Buscar actualizaciones</button>
+        <button id="checkUpdates" class="run-btn" title="Buscar una nueva version de la app" data-i18n="html.header.updatesButton" data-i18n-title="html.header.updatesButtonTitle">Buscar actualizaciones</button>
         <span id="updateStatus" class="update-status">-</span>
       </div>
       <div class="add-wrap">
-        <button id="addBtn" title="Agregar acceso directo">+</button>
+        <button id="addBtn" title="Agregar un nuevo acceso" data-i18n-title="html.header.addButtonTitle">+</button>
         <div id="addMenu" class="add-menu hidden">
-          <button data-add="exe">Programa (.exe)</button>
-          <button data-add="url">Pagina web</button>
-          <button data-add="folder">Carpeta</button>
+          <button data-add="exe" title="Agregar un programa ejecutable" data-i18n="html.header.addMenu.exe" data-i18n-title="html.header.addMenu.exeTitle">Programa (.exe)</button>
+          <button data-add="url" title="Agregar un enlace web" data-i18n="html.header.addMenu.url" data-i18n-title="html.header.addMenu.urlTitle">Pagina web</button>
+          <button data-add="folder" title="Agregar una carpeta" data-i18n="html.header.addMenu.folder" data-i18n-title="html.header.addMenu.folderTitle">Carpeta</button>
         </div>
       </div>
     </div>
@@ -33,49 +80,100 @@
   <main>
     <div class="container">
       <nav class="tabs">
-        <button id="tabShortcuts" class="tab active">Mis accesos</button>
-        <button id="tabMaintenance" class="tab">Cuidado del equipo</button>
+        <button id="tabShortcuts" class="tab active" title="Ver y ejecutar tus accesos" data-i18n="html.tabs.shortcuts" data-i18n-title="html.tabs.shortcutsTitle">Mis accesos</button>
+        <button id="tabMaintenance" class="tab" title="Herramientas de mantenimiento" data-i18n="html.tabs.maintenance" data-i18n-title="html.tabs.maintenanceTitle">Cuidado del equipo</button>
       </nav>
-      <section class="settings">
-        <label class="switch">
-          <input id="keepInTrayToggle" type="checkbox" />
-          <span class="slider"></span>
-          <span>Dejar la app activa en segundo plano</span>
-        </label>
-        <label class="switch">
-          <input id="startWithWindowsToggle" type="checkbox" />
-          <span class="slider"></span>
-          <span>Iniciar con Windows</span>
-        </label>
-      </section>
-      <section class="quick-help">
-        <div class="help-title">Guia rapida</div>
-        <div class="help-grid">
-          <div>1) Pulsa <strong>+</strong> para agregar un acceso.</div>
-          <div>2) Pulsa <strong>Iniciar</strong> para abrirlo.</div>
-          <div>3) Clic derecho para editar, mover o eliminar.</div>
+      <section class="accessibility">
+        <button id="accessibilityMenuToggle" type="button" class="run-btn" title="Abrir opciones para mejorar lectura, contraste y comodidad" aria-expanded="false" data-i18n="html.accessibility.toggle" data-i18n-title="html.accessibility.toggleTitle">
+          Accesibilidad
+        </button>
+        <div id="accessibilityMenu" class="accessibility-menu">
+          <label class="accessibility-row" for="fontSizeSelect">
+            <span data-i18n="html.accessibility.fontSizeLabel">Tamano de texto</span>
+            <select id="fontSizeSelect" title="Ajustar el tamano general de la app" data-i18n-title="html.accessibility.fontSizeTitle">
+              <option value="normal" data-i18n="html.accessibility.fontSizeNormal">Normal</option>
+              <option value="large" data-i18n="html.accessibility.fontSizeLarge">Grande</option>
+              <option value="xlarge" data-i18n="html.accessibility.fontSizeXLarge">Muy grande</option>
+            </select>
+          </label>
+          <label class="switch">
+            <input id="highContrastToggle" type="checkbox" />
+            <span class="slider"></span>
+            <span data-i18n="html.accessibility.highContrast">Alto contraste</span>
+          </label>
+          <label class="switch">
+            <input id="reduceMotionToggle" type="checkbox" />
+            <span class="slider"></span>
+            <span data-i18n="html.accessibility.reduceMotion">Reducir animaciones</span>
+          </label>
+          <label class="switch">
+            <input id="focusBoostToggle" type="checkbox" />
+            <span class="slider"></span>
+            <span data-i18n="html.accessibility.focusBoost">Resaltar foco de teclado</span>
+          </label>
+          <label class="switch">
+            <input id="comfortableSpacingToggle" type="checkbox" />
+            <span class="slider"></span>
+            <span data-i18n="html.accessibility.comfortableSpacing">Espaciado amplio</span>
+          </label>
+          <label class="switch">
+            <input id="actionsRightToggle" type="checkbox" />
+            <span class="slider"></span>
+            <span data-i18n="html.accessibility.actionsRight">Botones a la derecha</span>
+          </label>
+          <label class="switch">
+            <input id="showGuidePanelToggle" type="checkbox" />
+            <span class="slider"></span>
+            <span data-i18n="html.accessibility.showGuidePanel">Mostrar menu de guia asistida</span>
+          </label>
+          <div class="accessibility-tip" data-i18n="html.accessibility.tip">Si el texto se ve pequeno, usa "Tamano de texto" y ajustalo a tu gusto. Se guarda automaticamente.</div>
         </div>
       </section>
+      <section id="quickHelpSection" class="quick-help">
+        <div class="help-head">
+          <div>
+            <div class="help-title" data-i18n="html.guide.title">Guia asistida</div>
+            <div class="help-subtitle" data-i18n="html.guide.subtitle">Te explica la app paso a paso y puedes cerrarla cuando quieras.</div>
+          </div>
+          <button id="startGuide" class="run-btn start-btn" title="Iniciar guia paso a paso" data-i18n="html.guide.start" data-i18n-title="html.guide.startTitle">Iniciar guia</button>
+        </div>
+        <label class="switch">
+          <input id="guideAutoToggle" type="checkbox" />
+          <span class="slider"></span>
+          <span data-i18n="html.guide.auto">Mostrar guia al abrir la app</span>
+        </label>
+      </section>
       <section id="shortcutsPanel">
+        <div class="shortcuts-toolbar">
+          <div class="search-wrap">
+            <input id="shortcutSearch" type="text" placeholder="Buscar acceso..." title="Buscar por nombre o ruta (Ctrl+F)" data-i18n-placeholder="html.shortcuts.searchPlaceholder" data-i18n-title="html.shortcuts.searchTitle" />
+            <button id="clearShortcutSearch" class="run-btn hidden" title="Limpiar busqueda (Ctrl+Shift+X)" data-i18n="html.shortcuts.searchClear" data-i18n-title="html.shortcuts.searchClearTitle">Limpiar</button>
+          </div>
+          <div class="shortcuts-actions">
+            <button id="importShortcuts" class="run-btn hidden" title="Importar accesos desde un archivo JSON" data-i18n="html.shortcuts.import" data-i18n-title="html.shortcuts.importTitle">Importar</button>
+            <button id="exportShortcuts" class="run-btn hidden" title="Exportar accesos a un archivo JSON" data-i18n="html.shortcuts.export" data-i18n-title="html.shortcuts.exportTitle">Exportar</button>
+            <button id="addShortcutInline" class="run-btn" title="Agregar un nuevo acceso" data-i18n="html.shortcuts.addInline" data-i18n-title="html.shortcuts.addInlineTitle">Agregar acceso</button>
+          </div>
+        </div>
         <ul id="list"></ul>
       </section>
       <section id="maintenancePanel" class="hidden">
         <div class="diagnostic-card">
           <div class="output-header">
-            <div>Diagnostico rapido</div>
-            <button id="refreshDiagnostic" class="run-btn">Actualizar</button>
+            <div data-i18n="html.maintenance.diagnosticTitle">Diagnostico rapido</div>
+            <button id="refreshDiagnostic" class="run-btn" title="Volver a analizar el estado del equipo" data-i18n="html.maintenance.diagnosticRefresh" data-i18n-title="html.maintenance.diagnosticRefreshTitle">Actualizar</button>
           </div>
           <div id="diagnosticMeta" class="diagnostic-meta"></div>
           <ul id="diagnosticList" class="diagnostic-list"></ul>
         </div>
         <div class="chrome-card">
           <div class="output-header">
-            <div>Limpieza de Chrome</div>
+            <div data-i18n="html.maintenance.chromeTitle">Limpieza de Chrome</div>
           </div>
           <div class="chrome-profiles">
-            <div class="profiles-title">Perfiles de Chrome</div>
+            <div class="profiles-title" data-i18n="html.maintenance.chromeProfilesTitle">Perfiles de Chrome</div>
             <div id="chromeProfiles" class="profiles-list"></div>
-            <div id="chromeRunningWarn" class="chrome-warning hidden">
+            <div id="chromeRunningWarn" class="chrome-warning hidden" data-i18n="html.maintenance.chromeRunningWarn">
               Chrome esta abierto. Cierralo para limpiar mejor.
             </div>
           </div>
@@ -83,46 +181,46 @@
             <label class="switch">
               <input id="chromeCache" type="checkbox" checked />
               <span class="slider"></span>
-              <span>Cache y Code Cache</span>
+              <span data-i18n="html.maintenance.chromeCache">Cache y Code Cache</span>
             </label>
             <label class="switch">
               <input id="chromeGpuCache" type="checkbox" checked />
               <span class="slider"></span>
-              <span>GPUCache y Media Cache</span>
+              <span data-i18n="html.maintenance.chromeGpuCache">GPUCache y Media Cache</span>
             </label>
             <label class="switch">
               <input id="chromeServiceWorker" type="checkbox" checked />
               <span class="slider"></span>
-              <span>Service Worker / CacheStorage</span>
+              <span data-i18n="html.maintenance.chromeServiceWorker">Service Worker / CacheStorage</span>
             </label>
             <label class="switch">
               <input id="chromeCookies" type="checkbox" checked />
               <span class="slider"></span>
-              <span>Cookies</span>
+              <span data-i18n="html.maintenance.chromeCookies">Cookies</span>
             </label>
             <label class="switch">
               <input id="chromeHistory" type="checkbox" checked />
               <span class="slider"></span>
-              <span>Historial</span>
+              <span data-i18n="html.maintenance.chromeHistory">Historial</span>
             </label>
             <label class="switch">
               <input id="chromeSessions" type="checkbox" checked />
               <span class="slider"></span>
-              <span>Sesiones (pestanas abiertas)</span>
+              <span data-i18n="html.maintenance.chromeSessions">Sesiones (pestanas abiertas)</span>
             </label>
           </div>
-          <div id="chromeWarning" class="chrome-warning hidden">
+          <div id="chromeWarning" class="chrome-warning hidden" data-i18n="html.maintenance.chromeWarning">
             Aviso: al limpiar sesiones puedes cerrar cuentas y perder pestanas abiertas.
           </div>
-          <button id="runChromeCleanup" class="run-btn start-btn">Iniciar limpieza</button>
+          <button id="runChromeCleanup" class="run-btn start-btn" title="Iniciar limpieza de los datos seleccionados" data-i18n="html.maintenance.chromeRunCleanup" data-i18n-title="html.maintenance.chromeRunCleanupTitle">Iniciar limpieza</button>
         </div>
         <div id="maintenanceList" class="maintenance-list"></div>
         <div class="maintenance-output hidden" id="maintenanceOutputWrap">
           <div class="output-header">
-            <div>Salida</div>
+            <div data-i18n="html.maintenance.outputTitle">Salida</div>
             <div class="output-actions">
-              <button id="toggleOutput" class="run-btn">Mostrar detalles</button>
-              <button id="clearOutput" class="run-btn">Limpiar</button>
+              <button id="toggleOutput" class="run-btn" title="Mostrar u ocultar detalles de ejecucion" data-i18n="html.maintenance.toggleOutput" data-i18n-title="html.maintenance.toggleOutputTitle">Mostrar detalles</button>
+              <button id="clearOutput" class="run-btn" title="Borrar el contenido de la salida" data-i18n="html.maintenance.clearOutput" data-i18n-title="html.maintenance.clearOutputTitle">Limpiar</button>
             </div>
           </div>
           <pre id="maintenanceOutput" class="output-box"></pre>
@@ -136,22 +234,37 @@
       <h2 id="modalTitle"></h2>
       <input id="modalInput" type="text" />
       <div class="modal-actions">
-        <button id="modalCancel">Cancelar</button>
-        <button id="modalOk">Guardar</button>
+        <button id="modalCancel" data-i18n="html.modal.cancel">Cancelar</button>
+        <button id="modalOk" data-i18n="html.modal.save">Guardar</button>
       </div>
     </div>
   </div>
 
   <div id="confirm" class="hidden">
     <div class="modal-card">
-      <h2 id="confirmTitle">Confirmar</h2>
+      <h2 id="confirmTitle" data-i18n="html.modal.confirmTitle">Confirmar</h2>
       <div id="confirmText"></div>
       <div class="modal-actions">
-        <button id="confirmCancel">Cancelar</button>
-        <button id="confirmOk">Iniciar</button>
+        <button id="confirmCancel" data-i18n="html.modal.cancel">Cancelar</button>
+        <button id="confirmOk" data-i18n="html.modal.confirmAction">Iniciar</button>
       </div>
     </div>
   </div>
+
+  <div id="guideTour" class="guide-tour hidden">
+    <div class="guide-card" role="dialog" aria-modal="false" aria-label="Guia de uso" data-i18n-aria-label="html.tour.ariaLabel">
+      <div id="guideStep" class="guide-step"></div>
+      <h2 id="guideTitle" class="guide-title"></h2>
+      <p id="guideText" class="guide-text"></p>
+      <div class="guide-actions">
+        <button id="guideClose" class="run-btn" type="button" data-i18n="html.tour.close">Cerrar</button>
+        <button id="guidePrev" class="run-btn" type="button" data-i18n="html.tour.prev">Anterior</button>
+        <button id="guideNext" class="run-btn start-btn" type="button" data-i18n="html.tour.next">Siguiente</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
 
   <script src="renderer.js"></script>
 </body>

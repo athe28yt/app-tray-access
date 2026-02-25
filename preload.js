@@ -1,15 +1,20 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('api', {
+  getI18n: () => ipcRenderer.invoke('get-i18n'),
   getShortcuts: () => ipcRenderer.invoke('get-shortcuts'),
   saveShortcuts: (items) => ipcRenderer.invoke('save-shortcuts', items),
   pickPath: () => ipcRenderer.invoke('pick-path'),
   pickExe: () => ipcRenderer.invoke('pick-exe'),
   pickFolder: () => ipcRenderer.invoke('pick-folder'),
+  importShortcuts: () => ipcRenderer.invoke('import-shortcuts'),
+  exportShortcuts: (items) => ipcRenderer.invoke('export-shortcuts', items),
   validatePath: (targetPath) => ipcRenderer.invoke('validate-path', targetPath),
+  validateUrl: (targetUrl) => ipcRenderer.invoke('validate-url', targetUrl),
   openTarget: (item) => ipcRenderer.invoke('open-target', item),
   getSettings: () => ipcRenderer.invoke('get-settings'),
   saveSettings: (settings) => ipcRenderer.invoke('save-settings', settings),
+  clearAppCache: () => ipcRenderer.invoke('clear-app-cache'),
   getMaintenanceActions: () => ipcRenderer.invoke('get-maintenance-actions'),
   runMaintenance: (actionId) => ipcRenderer.send('run-maintenance', actionId),
   onMaintenanceOutput: (cb) => ipcRenderer.on('maintenance-output', (_evt, payload) => cb(payload)),
@@ -19,6 +24,7 @@ contextBridge.exposeInMainWorld('api', {
   isChromeRunning: () => ipcRenderer.invoke('is-chrome-running'),
   checkUpdates: () => ipcRenderer.invoke('check-updates'),
   installUpdate: () => ipcRenderer.invoke('install-update'),
+  getAppInfo: () => ipcRenderer.invoke('get-app-info'),
   onUpdateStatus: (cb) => ipcRenderer.on('update-status', (_evt, payload) => cb(payload)),
   showItemMenu: (index) => ipcRenderer.invoke('show-item-menu', index),
   onMenuAction: (cb) => ipcRenderer.on('menu-action', (_evt, payload) => cb(payload))

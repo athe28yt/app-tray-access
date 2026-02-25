@@ -1,0 +1,419 @@
+{
+  "app": {
+    "title": "Accesos Directos"
+  },
+  "html": {
+    "brand": {
+      "title": "Mis accesos",
+      "subtitle": "Abre programas, carpetas y enlaces en un clic."
+    },
+    "header": {
+      "theme": "Tema",
+      "themeTitle": "Cambiar entre modo claro y oscuro",
+      "settings": "Ajustes",
+      "settingsTitle": "Abrir ajustes de la aplicacion",
+      "settingsPanelTitle": "Ajustes de la aplicacion",
+      "settingsTip": "Puedes cambiar estos ajustes cuando quieras.",
+      "updatesButton": "Buscar actualizaciones",
+      "updatesButtonTitle": "Buscar una nueva version de la app",
+      "addButtonTitle": "Agregar un nuevo acceso",
+      "addMenu": {
+        "exe": "Programa (.exe)",
+        "exeTitle": "Agregar un programa ejecutable",
+        "url": "Pagina web",
+        "urlTitle": "Agregar un enlace web",
+        "folder": "Carpeta",
+        "folderTitle": "Agregar una carpeta"
+      }
+    },
+    "settings": {
+      "keepInTray": "Dejar la app activa en segundo plano",
+      "startWithWindows": "Abrir al encender la PC",
+      "startWithWindowsTitle": "Abre esta app automaticamente cuando enciendes Windows.",
+      "autoUpdate": "Actualizar automaticamente",
+      "notifications": "Mostrar notificaciones",
+      "advancedMode": "Modo avanzado",
+      "clearAppCache": "Limpiar cache de la app",
+      "clearAppCacheTitle": "Borrar cache y datos locales de la app (solo modo avanzado)"
+    },
+    "tabs": {
+      "shortcuts": "Mis accesos",
+      "shortcutsTitle": "Ver y ejecutar tus accesos",
+      "maintenance": "Cuidado del equipo",
+      "maintenanceTitle": "Herramientas de mantenimiento"
+    },
+    "accessibility": {
+      "toggle": "Accesibilidad",
+      "toggleTitle": "Abrir opciones para mejorar lectura, contraste y comodidad",
+      "fontSizeLabel": "Tamano de texto",
+      "fontSizeTitle": "Ajustar el tamano general de la app",
+      "fontSizeNormal": "Normal",
+      "fontSizeLarge": "Grande",
+      "fontSizeXLarge": "Muy grande",
+      "highContrast": "Alto contraste",
+      "reduceMotion": "Reducir animaciones",
+      "focusBoost": "Resaltar foco de teclado",
+      "comfortableSpacing": "Espaciado amplio",
+      "actionsRight": "Botones a la derecha",
+      "showGuidePanel": "Mostrar menu de guia asistida",
+      "tip": "Si el texto se ve pequeno, usa \"Tamano de texto\" y ajustalo a tu gusto. Se guarda automaticamente."
+    },
+    "guide": {
+      "title": "Guia asistida",
+      "subtitle": "Te explica la app paso a paso y puedes cerrarla cuando quieras.",
+      "start": "Iniciar guia",
+      "startTitle": "Iniciar guia paso a paso",
+      "auto": "Mostrar guia al abrir la app"
+    },
+    "shortcuts": {
+      "searchPlaceholder": "Buscar acceso...",
+      "searchTitle": "Buscar por nombre o ruta (Ctrl+F)",
+      "searchClear": "Limpiar",
+      "searchClearTitle": "Limpiar busqueda (Ctrl+Shift+X)",
+      "import": "Importar",
+      "importTitle": "Importar accesos desde un archivo JSON",
+      "export": "Exportar",
+      "exportTitle": "Exportar accesos a un archivo JSON",
+      "addInline": "Agregar acceso",
+      "addInlineTitle": "Agregar un nuevo acceso"
+    },
+    "maintenance": {
+      "diagnosticTitle": "Diagnostico rapido",
+      "diagnosticRefresh": "Actualizar",
+      "diagnosticRefreshTitle": "Volver a analizar el estado del equipo",
+      "chromeTitle": "Limpieza de Chrome",
+      "chromeProfilesTitle": "Perfiles de Chrome",
+      "chromeRunningWarn": "Chrome esta abierto. Cierralo para limpiar mejor.",
+      "chromeCache": "Cache y Code Cache",
+      "chromeGpuCache": "GPUCache y Media Cache",
+      "chromeServiceWorker": "Service Worker / CacheStorage",
+      "chromeCookies": "Cookies",
+      "chromeHistory": "Historial",
+      "chromeSessions": "Sesiones (pestanas abiertas)",
+      "chromeWarning": "Aviso: al limpiar sesiones puedes cerrar cuentas y perder pestanas abiertas.",
+      "chromeRunCleanup": "Iniciar limpieza",
+      "chromeRunCleanupTitle": "Iniciar limpieza de los datos seleccionados",
+      "outputTitle": "Salida",
+      "toggleOutput": "Mostrar detalles",
+      "toggleOutputTitle": "Mostrar u ocultar detalles de ejecucion",
+      "clearOutput": "Limpiar",
+      "clearOutputTitle": "Borrar el contenido de la salida"
+    },
+    "modal": {
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "confirmTitle": "Confirmar",
+      "confirmAction": "Iniciar"
+    },
+    "tour": {
+      "ariaLabel": "Guia de uso",
+      "close": "Cerrar",
+      "prev": "Anterior",
+      "next": "Siguiente"
+    }
+  },
+  "renderer": {
+    "labels": {
+      "invalidItem": "Elemento invalido.",
+      "noName": "Sin nombre",
+      "noPath": "Sin ruta",
+      "noUrl": "Sin URL",
+      "pinnedPrefix": "Fijado - {type}",
+      "run": "Iniciar",
+      "edit": "Editar",
+      "pin": "Fijar",
+      "unpin": "Desfijar",
+      "requiresAdmin": "Requiere administrador",
+      "runTaskTitle": "Iniciar esta tarea",
+      "runRecommendationTitle": "Iniciar esta recomendacion",
+      "runShortcutTitle": "Abrir este acceso",
+      "editShortcutTitle": "Editar este acceso",
+      "pinShortcutTitle": "Fijar arriba",
+      "unpinShortcutTitle": "Quitar de accesos fijados"
+    },
+    "types": {
+      "url": "Enlace web",
+      "folder": "Carpeta",
+      "exe": "Programa"
+    },
+    "emptyState": {
+      "noShortcutsTitle": "Aun no tienes accesos",
+      "noShortcutsHint": "Agrega tu primer acceso para empezar.",
+      "addFirst": "Agregar primer acceso",
+      "addFirstTitle": "Agregar tu primer acceso",
+      "noResultsTitle": "Sin resultados",
+      "noResultsHint": "Prueba con otro texto de busqueda."
+    },
+    "hint": {
+      "itemContext": "Clic derecho para editar, mover o eliminar",
+      "noChromeProfiles": "No se encontraron perfiles de Chrome.",
+      "settingsQuickTip": "Pulsa Ajustes para configurar la app. Si el texto se ve pequeno, en Accesibilidad puedes agrandarlo."
+    },
+    "integrity": {
+      "urlOk": "El sitio responde correctamente.",
+      "urlEmpty": "Ingresa una URL para verificar.",
+      "urlInvalid": "La URL no es valida. Usa http:// o https://",
+      "urlHttp": "El sitio respondio con estado {status}.",
+      "urlTimeout": "No se pudo verificar la URL por tiempo de espera.",
+      "urlNetwork": "No se pudo conectar para validar la URL.",
+      "urlUnknown": "No se pudo validar la URL.",
+      "pathOk": "La ruta sigue disponible.",
+      "pathMissing": "La ruta ya no existe o no esta disponible.",
+      "urlTitle": "Integridad URL",
+      "pathTitle": "Integridad ruta",
+      "urlInvalidTitle": "URL no valida",
+      "pathInvalidTitle": "Ruta no disponible"
+    },
+    "toasts": {
+      "category": {
+        "interface": "Interfaz",
+        "access": "Accesos",
+        "maintenance": "Mantenimiento",
+        "important": "Importante"
+      },
+      "defaultError": "Error",
+      "defaultInfo": "Aviso",
+      "close": "Cerrar",
+      "undoAction": "Deshacer",
+      "copiedTitle": "Copiado",
+      "copiedMessage": "Se copio el detalle al portapapeles.",
+      "copyErrorTitle": "No se pudo copiar",
+      "copyErrorMessage": "Copia el detalle manualmente.",
+      "saveError": "No se pudieron guardar los cambios.",
+      "accessibilityTitle": "Accesibilidad",
+      "settingsTitle": "Ajustes",
+      "guideTitle": "Guia",
+      "savedTitle": "Guardado",
+      "updatedAccessTitle": "Acceso actualizado",
+      "pinnedMessage": "Acceso fijado al inicio.",
+      "unpinnedMessage": "Acceso desfijado.",
+      "cannotStartTitle": "No se pudo iniciar",
+      "cannotCreateTitle": "No se pudo crear el acceso",
+      "cannotCreateMessage": "Ocurrio un error inesperado. Intenta de nuevo.",
+      "addedAccessTitle": "Acceso agregado",
+      "addedWebMessage": "Se agrego el enlace web.",
+      "addedProgramMessage": "Se agrego el programa.",
+      "addedFolderMessage": "Se agrego la carpeta.",
+      "nameUpdated": "Nombre actualizado.",
+      "linkUpdated": "Enlace actualizado.",
+      "pathUpdated": "Ruta actualizada.",
+      "deletedTitle": "Acceso eliminado",
+      "deletedMessage": "Se elimino \"{name}\".",
+      "restoredTitle": "Restaurado",
+      "restoredMessage": "El acceso fue restaurado.",
+      "settingsSavedTitle": "Ajuste guardado",
+      "backgroundOn": "La app seguira activa en segundo plano al cerrar.",
+      "backgroundOff": "La app se cerrara por completo al salir.",
+      "startupOn": "La app se abrira automaticamente al encender la PC.",
+      "startupOff": "La app ya no se abrira automaticamente al encender la PC.",
+      "autoUpdatesOn": "Busqueda automatica de actualizaciones activada.",
+      "autoUpdatesOff": "Busqueda automatica de actualizaciones desactivada.",
+      "notificationsTitle": "Notificaciones",
+      "notificationsOn": "Notificaciones activadas.",
+      "notificationsOff": "Notificaciones desactivadas.",
+      "interfaceModeTitle": "Modo de interfaz",
+      "advancedOn": "Modo avanzado activado.",
+      "advancedOff": "Modo simple activado.",
+      "guideAutoOn": "La guia automatica queda activa para futuras versiones.",
+      "guideAutoOff": "La guia automatica se desactivo.",
+      "showGuidePanelOn": "Menu de guia asistida visible.",
+      "showGuidePanelOff": "Menu de guia asistida oculto.",
+      "importErrorTitle": "Importacion fallida",
+      "importErrorMessage": "No se pudo importar el archivo.",
+      "importOkTitle": "Importacion completa",
+      "importOkMessage": "Se cargaron {count} accesos.",
+      "exportErrorTitle": "Exportacion fallida",
+      "exportErrorMessage": "No se pudo exportar el archivo.",
+      "exportOkTitle": "Exportacion completa",
+      "exportOkMessage": "Accesos exportados correctamente.",
+      "quickTipTitle": "Consejo rapido",
+      "openAccessibilityAction": "Abrir accesibilidad",
+      "devUpdateErrorTitle": "Error de updates (DEV)",
+      "copyDetailsAction": "Copiar detalle",
+      "chromeCleanupTitle": "Limpieza de Chrome",
+      "chromeProfileRequired": "Selecciona al menos un perfil de Chrome para limpiar.",
+      "clearCacheRestarting": "Se limpiaran cache y datos. La app se reiniciara ahora.",
+      "clearCacheFailed": "No se pudo limpiar la cache de la app."
+    },
+    "errors": {
+      "cannotSaveGuideState": "No se pudo guardar el estado de la guia.",
+      "cannotSaveSettingsHint": "No se pudo guardar la ayuda de ajustes.",
+      "cannotOpenSettings": "No se pudo abrir el menu de ajustes.",
+      "cannotCloseSettings": "No se pudo cerrar el menu de ajustes.",
+      "cannotOpenAccessibility": "No se pudo abrir el menu de accesibilidad.",
+      "cannotToggleAccessibility": "No se pudo actualizar la visibilidad del menu.",
+      "cannotRunGuideSave": "No se pudo guardar el estado de la guia."
+    },
+    "accessibility": {
+      "fontSizeUpdated": "Tamano de texto actualizado.",
+      "highContrastUpdated": "Alto contraste actualizado.",
+      "reduceMotionUpdated": "Preferencia de animacion actualizada.",
+      "focusBoostUpdated": "Resaltado de foco actualizado.",
+      "spacingUpdated": "Espaciado actualizado.",
+      "actionsRightOn": "Botones a la derecha activados.",
+      "actionsRightOff": "Botones debajo de la informacion activados."
+    },
+    "guide": {
+      "stepCounter": "Paso {current} de {total}",
+      "finish": "Finalizar",
+      "next": "Siguiente",
+      "steps": {
+        "add": {
+          "title": "Agregar accesos",
+          "text": "Pulsa el boton + para agregar un programa, carpeta o pagina web."
+        },
+        "list": {
+          "title": "Tus accesos",
+          "text": "Cada item muestra su informacion a la izquierda y botones a la derecha para editar, iniciar o fijar."
+        },
+        "search": {
+          "title": "Busqueda rapida",
+          "text": "Escribe aqui para encontrar accesos mas rapido."
+        },
+        "accessibility": {
+          "title": "Accesibilidad",
+          "text": "Desde aqui ajustas texto, contraste y la forma en que se acomodan los botones."
+        },
+        "maintenance": {
+          "title": "Cuidado del equipo",
+          "text": "Aqui tienes diagnostico, limpieza de Chrome y tareas de mantenimiento."
+        },
+        "advancedMode": {
+          "title": "Modo avanzado",
+          "text": "Activa este ajuste si quieres ver herramientas de mantenimiento."
+        }
+      }
+    },
+    "theme": {
+      "dark": "Modo oscuro",
+      "light": "Modo claro"
+    },
+    "updates": {
+      "checking": "Verificando...",
+      "buttonChecking": "Buscando...",
+      "available": "Hay una actualizacion disponible",
+      "buttonUpdate": "Actualizar",
+      "downloading": "Descargando {percent}%",
+      "buttonDownloading": "Descargando",
+      "downloaded": "Actualizacion lista para instalar",
+      "buttonInstall": "Reiniciar y actualizar",
+      "latest": "Ya tienes la ultima version",
+      "buttonCheck": "Buscar actualizaciones",
+      "devOnly": "Disponible solo en produccion",
+      "error": "Error: {detail}",
+      "autoOff": "Actualizacion automatica desactivada",
+      "none": "-"
+    },
+    "diagnostic": {
+      "noData": "Sin datos de diagnostico.",
+      "freeSpace": "Espacio libre: {free} GB / {total} GB.",
+      "freeSpaceUnknown": "Espacio libre: no disponible.",
+      "uptime": "Uptime: {hours} horas.",
+      "uptimeUnknown": "Uptime: no disponible.",
+      "lastDiagnostic": "Ultimo diagnostico: {date}.",
+      "lastDiagnosticUnknown": "Ultimo diagnostico: no disponible.",
+      "noRecommendations": "Sin recomendaciones por ahora.",
+      "defaultActionLabel": "esta accion"
+    },
+    "confirm": {
+      "runAction": "Deseas iniciar \"{name}\"?",
+      "updateReady": "Hay una actualizacion lista. La app se cerrara para instalarla. Continuar?",
+      "chromeCleanup": "Deseas iniciar la limpieza de Chrome? Se recomienda cerrar Chrome primero.",
+      "saveInvalidUrl": "{message}\n\nDeseas guardar el acceso igualmente?",
+      "saveInvalidUrlEdit": "{message}\n\nDeseas guardar la URL igualmente?",
+      "clearAppCache": "Se borraran cache y datos locales de la app (accesos, ajustes y preferencias).\n\nDeseas continuar? La app se relanzara automaticamente."
+    },
+    "output": {
+      "show": "Mostrar detalles",
+      "hide": "Ocultar detalles"
+    },
+    "modals": {
+      "shortcutName": "Nombre del acceso directo",
+      "url": "URL",
+      "editName": "Editar nombre",
+      "editUrl": "Editar URL"
+    }
+  },
+  "main": {
+    "appMenu": {
+      "file": "File",
+      "edit": "Edit",
+      "view": "View",
+      "window": "Window",
+      "help": "Help"
+    },
+    "tray": {
+      "unnamed": "Sin nombre",
+      "open": "Abrir",
+      "close": "Cerrar",
+      "tooltip": "Launcher de accesos"
+    },
+    "maintenance": {
+      "cleanmgr_basic": {
+        "name": "Limpieza de disco",
+        "description": "Abre el limpiador de disco para borrar temporales y otros archivos."
+      },
+      "cleanmgr_sageset": {
+        "name": "Configurar limpieza avanzada",
+        "description": "Permite elegir que categorias se limpiaran (sageset:1)."
+      },
+      "cleanmgr_sagerun": {
+        "name": "Iniciar limpieza avanzada",
+        "description": "Ejecuta la limpieza configurada en sageset:1."
+      },
+      "dism_analyze": {
+        "name": "Analizar almacen de componentes",
+        "description": "Evalua si el WinSxS se puede limpiar."
+      },
+      "dism_cleanup": {
+        "name": "Limpiar componentes antiguos",
+        "description": "Elimina versiones antiguas de componentes."
+      },
+      "sfc_scan": {
+        "name": "Reparar archivos de sistema",
+        "description": "Ejecuta SFC para reparar archivos del sistema."
+      },
+      "running": "Ejecutando: {name}",
+      "launchAdminInfo": "Comando lanzado con permisos de administrador. La salida no se puede capturar en esta app.",
+      "finishedCode": "Finalizado con codigo {code}",
+      "chromeMissingProfileDir": "No se encontro la carpeta de perfiles de Chrome.",
+      "chromeCleanupStart": "Limpiando datos de Chrome...",
+      "removedPath": "Eliminado: {path}",
+      "cannotRemovePath": "No se pudo eliminar: {path}",
+      "chromeCleanupDone": "Limpieza de Chrome finalizada."
+    },
+    "diagnostic": {
+      "lowSpace": "Poco espacio libre: ejecuta Limpieza de disco.",
+      "criticalSpace": "Espacio critico: ejecuta Limpieza avanzada (sagerun).",
+      "highUptime": "Uptime alto: considera reiniciar el equipo."
+    },
+    "updates": {
+      "authError": "Error de autorizacion del servicio de actualizaciones.",
+      "notFound": "No se encontro una version disponible para actualizar.",
+      "rateLimit": "Demasiadas solicitudes al servicio de actualizaciones. Intenta mas tarde.",
+      "network": "No se pudo conectar al servicio de actualizaciones.",
+      "unavailable": "No disponible temporalmente."
+    },
+    "contextMenu": {
+      "run": "Iniciar",
+      "check": "Verificar estado",
+      "editName": "Editar nombre",
+      "editPath": "Editar ruta",
+      "moveUp": "Mover arriba",
+      "moveDown": "Mover abajo",
+      "delete": "Eliminar"
+    },
+    "importExport": {
+      "appsFilterName": "Aplicaciones",
+      "jsonFilterName": "JSON",
+      "invalidList": "El archivo no contiene una lista valida.",
+      "readError": "No se pudo leer el archivo seleccionado.",
+      "exportTitle": "Exportar accesos",
+      "writeError": "No se pudo guardar el archivo."
+    },
+    "cache": {
+      "advancedOnly": "Esta accion solo esta disponible en modo avanzado.",
+      "clearFailed": "No se pudo limpiar la cache de la app."
+    }
+  }
+}
