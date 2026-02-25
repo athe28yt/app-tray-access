@@ -45,7 +45,7 @@ const maintenanceActions = [
   },
   {
     id: 'cleanmgr_sagerun',
-    name: 'Ejecutar limpieza avanzada',
+    name: 'Iniciar limpieza avanzada',
     description: 'Ejecuta la limpieza configurada en sageset:1.',
     command: 'cleanmgr',
     args: ['/sagerun:1'],
@@ -91,13 +91,14 @@ function getSettingsPath() {
 
 function loadSettings() {
   const file = getSettingsPath();
-  if (!fs.existsSync(file)) return { keepInTray: true, theme: 'light', diagnostic: { lastRun: null, result: null } };
+  if (!fs.existsSync(file)) return { keepInTray: true, launchOnStartup: false, theme: 'light', diagnostic: { lastRun: null, result: null } };
   try {
     const raw = fs.readFileSync(file, 'utf8');
     const data = JSON.parse(raw);
-    if (!data || typeof data !== 'object') return { keepInTray: true, theme: 'light', diagnostic: { lastRun: null, result: null } };
+    if (!data || typeof data !== 'object') return { keepInTray: true, launchOnStartup: false, theme: 'light', diagnostic: { lastRun: null, result: null } };
     return {
       keepInTray: data.keepInTray !== false,
+      launchOnStartup: data.launchOnStartup === true,
       theme: data.theme === 'dark' ? 'dark' : 'light',
       diagnostic: data.diagnostic && typeof data.diagnostic === 'object'
         ? {
@@ -107,13 +108,20 @@ function loadSettings() {
         : { lastRun: null, result: null }
     };
   } catch {
-    return { keepInTray: true, theme: 'light', diagnostic: { lastRun: null, result: null } };
+    return { keepInTray: true, launchOnStartup: false, theme: 'light', diagnostic: { lastRun: null, result: null } };
   }
 }
 
 function saveSettings(nextSettings) {
   const file = getSettingsPath();
   fs.writeFileSync(file, JSON.stringify(nextSettings, null, 2), 'utf8');
+}
+
+function applyLaunchOnStartup(enabled) {
+  if (!app.isPackaged) return;
+  app.setLoginItemSettings({
+    openAtLogin: enabled === true
+  });
 }
 
 function loadShortcuts() {
@@ -154,6 +162,8 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 720,
     height: 520,
+    minWidth: 960,
+    minHeight: 640,
     show: false,
     resizable: true,
     webPreferences: {
@@ -210,7 +220,7 @@ function rebuildTrayMenu() {
 function createTray() {
   const iconPath = path.join(__dirname, 'tray.png');
   tray = new Tray(iconPath);
-  tray.setToolTip('Accesos directos');
+  tray.setToolTip('Launcher de accesos');
   tray.on('double-click', () => mainWindow.show());
   rebuildTrayMenu();
 }
@@ -372,6 +382,7 @@ function getDiagnosticResult() {
 
 app.whenReady().then(() => {
   settings = loadSettings();
+  applyLaunchOnStartup(settings.launchOnStartup);
   createWindow();
   createTray();
   menuVisible = !app.isPackaged;
@@ -407,7 +418,7 @@ app.whenReady().then(() => {
 
   ipcMain.handle('show-item-menu', (_evt, index) => {
     const template = [
-      { label: 'Ejecutar', click: () => mainWindow.webContents.send('menu-action', { action: 'run', index }) },
+      { label: 'Iniciar', click: () => mainWindow.webContents.send('menu-action', { action: 'run', index }) },
       { type: 'separator' },
       { label: 'Editar nombre', click: () => mainWindow.webContents.send('menu-action', { action: 'edit-name', index }) },
       { label: 'Editar ruta', click: () => mainWindow.webContents.send('menu-action', { action: 'edit-path', index }) },
@@ -456,13 +467,21 @@ app.whenReady().then(() => {
     if (item.path) shell.openPath(item.path);
   });
 
-  ipcMain.handle('get-settings', () => settings);
+  ipcMain.handle('get-settings', () => {
+    const launchOnStartup = app.isPackaged
+      ? app.getLoginItemSettings().openAtLogin === true
+      : settings.launchOnStartup === true;
+    settings.launchOnStartup = launchOnStartup;
+    return settings;
+  });
   ipcMain.handle('save-settings', (_evt, nextSettings) => {
     settings = {
       keepInTray: nextSettings && nextSettings.keepInTray !== false,
+      launchOnStartup: nextSettings && nextSettings.launchOnStartup === true,
       theme: nextSettings && nextSettings.theme === 'dark' ? 'dark' : 'light',
       diagnostic: settings.diagnostic || { lastRun: null, result: null }
     };
+    applyLaunchOnStartup(settings.launchOnStartup);
     saveSettings(settings);
   });
 

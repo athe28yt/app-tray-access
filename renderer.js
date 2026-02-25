@@ -7,6 +7,7 @@ const modalInput = document.getElementById('modalInput');
 const modalCancel = document.getElementById('modalCancel');
 const modalOk = document.getElementById('modalOk');
 const keepInTrayToggle = document.getElementById('keepInTrayToggle');
+const startWithWindowsToggle = document.getElementById('startWithWindowsToggle');
 const themeToggle = document.getElementById('themeToggle');
 const tabShortcuts = document.getElementById('tabShortcuts');
 const tabMaintenance = document.getElementById('tabMaintenance');
@@ -39,13 +40,26 @@ const chromeRunningWarn = document.getElementById('chromeRunningWarn');
 
 let shortcuts = [];
 let modalResolve = null;
-let settings = { keepInTray: true, theme: 'light' };
+let settings = { keepInTray: true, launchOnStartup: false, theme: 'light' };
 let maintenanceActions = [];
 let confirmResolve = null;
 let diagnostic = null;
 let outputVisible = false;
 let chromeProfileList = [];
 let updateState = 'idle';
+
+function getShortcutType(item) {
+  if (!item || !item.type) return 'exe';
+  if (item.type === 'url') return 'url';
+  if (item.type === 'folder') return 'folder';
+  return 'exe';
+}
+
+function getShortcutTypeLabel(type) {
+  if (type === 'url') return 'Enlace web';
+  if (type === 'folder') return 'Carpeta';
+  return 'Programa';
+}
 
 function openModal(title, value) {
   modalTitle.textContent = title;
@@ -97,12 +111,13 @@ function render() {
   if (shortcuts.length === 0) {
     const empty = document.createElement('div');
     empty.className = 'item';
-    empty.innerHTML = '<div class="info"><div class="name">Sin accesos directos</div><div class="hint">Presiona + para agregar</div></div>';
+    empty.innerHTML = '<div class="info"><div class="name">Aun no tienes accesos</div><div class="hint">Pulsa + para agregar tu primer acceso</div></div>';
     listEl.appendChild(empty);
     return;
   }
 
   shortcuts.forEach((item, index) => {
+    const shortcutType = getShortcutType(item);
     const li = document.createElement('li');
     li.className = 'item';
     li.dataset.index = String(index);
@@ -114,23 +129,38 @@ function render() {
     name.className = 'name';
     name.textContent = item.name || 'Sin nombre';
 
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+
+    const typeIcon = document.createElement('span');
+    typeIcon.className = `type-icon type-${shortcutType}`;
+    typeIcon.setAttribute('aria-hidden', 'true');
+
+    const typeText = document.createElement('span');
+    typeText.className = 'type-text';
+    typeText.textContent = getShortcutTypeLabel(shortcutType);
+
+    meta.appendChild(typeIcon);
+    meta.appendChild(typeText);
+
     const path = document.createElement('div');
     path.className = 'path';
     path.textContent = item.type === 'url' ? (item.url || 'Sin URL') : (item.path || 'Sin ruta');
 
     info.appendChild(name);
+    info.appendChild(meta);
     info.appendChild(path);
 
     const hint = document.createElement('div');
     hint.className = 'hint';
-    hint.textContent = 'Click derecho para opciones';
+    hint.textContent = 'Clic derecho para editar, mover o eliminar';
 
     const actions = document.createElement('div');
     actions.className = 'actions';
 
     const runBtn = document.createElement('button');
-    runBtn.className = 'run-btn';
-    runBtn.textContent = 'RUN';
+    runBtn.className = 'run-btn start-btn';
+    runBtn.textContent = 'Iniciar';
     runBtn.addEventListener('click', async (e) => {
       e.stopPropagation();
       await window.api.openTarget({ id: item.id });
@@ -175,10 +205,10 @@ function setUpdateStatus(state, detail) {
   switch (state) {
     case 'checking':
       updateStatus.textContent = 'Verificando...';
-      checkUpdates.textContent = 'Verificando';
+      checkUpdates.textContent = 'Buscando...';
       break;
     case 'available':
-      updateStatus.textContent = 'Actualizacion disponible';
+      updateStatus.textContent = 'Hay una actualizacion disponible';
       checkUpdates.textContent = 'Actualizar';
       break;
     case 'downloading':
@@ -186,24 +216,24 @@ function setUpdateStatus(state, detail) {
       checkUpdates.textContent = 'Descargando';
       break;
     case 'downloaded':
-      updateStatus.textContent = 'Actualizacion lista';
+      updateStatus.textContent = 'Actualizacion lista para instalar';
       checkUpdates.textContent = 'Reiniciar y actualizar';
       break;
     case 'latest':
       updateStatus.textContent = 'Ya tienes la ultima version';
-      checkUpdates.textContent = 'Verificar version';
+      checkUpdates.textContent = 'Buscar actualizaciones';
       break;
     case 'dev':
       updateStatus.textContent = 'Disponible solo en produccion';
-      checkUpdates.textContent = 'Verificar version';
+      checkUpdates.textContent = 'Buscar actualizaciones';
       break;
     case 'error':
       updateStatus.textContent = `Error: ${detail || ''}`.trim();
-      checkUpdates.textContent = 'Verificar version';
+      checkUpdates.textContent = 'Buscar actualizaciones';
       break;
     default:
-      updateStatus.textContent = '—';
-      checkUpdates.textContent = 'Verificar version';
+      updateStatus.textContent = '-';
+      checkUpdates.textContent = 'Buscar actualizaciones';
       break;
   }
 }
@@ -236,10 +266,10 @@ function renderMaintenance() {
     }
 
     const run = document.createElement('button');
-    run.className = 'run-btn';
-    run.textContent = 'RUN';
+    run.className = 'run-btn start-btn';
+    run.textContent = 'Iniciar';
     run.addEventListener('click', async () => {
-      const ok = await openConfirm(`Ejecutar \"${action.name}\"?`);
+      const ok = await openConfirm(`Deseas iniciar \"${action.name}\"?`);
       if (!ok) return;
       await window.api.runMaintenance(action.id);
     });
@@ -281,12 +311,12 @@ function renderDiagnostic() {
     li.textContent = rec.text;
     if (rec.actionId) {
       const btn = document.createElement('button');
-      btn.className = 'run-btn';
-      btn.textContent = 'RUN';
+      btn.className = 'run-btn start-btn';
+      btn.textContent = 'Iniciar';
       btn.addEventListener('click', async () => {
         const action = maintenanceActions.find((item) => item.id === rec.actionId);
         const label = action ? action.name : 'esta accion';
-        const ok = await openConfirm(`Ejecutar \"${label}\"?`);
+        const ok = await openConfirm(`Deseas iniciar \"${label}\"?`);
         if (!ok) return;
         await window.api.runMaintenance(rec.actionId);
       });
@@ -341,7 +371,7 @@ function showOutput(forceShow) {
     outputVisible = !outputVisible;
   }
   maintenanceOutputWrap.classList.toggle('hidden', !outputVisible);
-  toggleOutput.textContent = outputVisible ? 'Ocultar salida' : 'Mostrar salida';
+  toggleOutput.textContent = outputVisible ? 'Ocultar detalles' : 'Mostrar detalles';
 }
 
 function toggleAddMenu(show) {
@@ -376,7 +406,7 @@ addMenu.addEventListener('click', async (e) => {
       validUrl = false;
     }
     if (!validUrl) {
-      alert('URL no valida. Debe empezar con http:// o https://');
+      alert('La direccion no es valida. Debe empezar con http:// o https://');
       return;
     }
     shortcuts.push({ id: `sc_${Date.now()}_${Math.random().toString(16).slice(2)}`, name, type: 'url', url, usageCount: 0, lastUsed: null });
@@ -389,7 +419,7 @@ addMenu.addEventListener('click', async (e) => {
     if (!path) return;
     const exists = await window.api.validatePath(path);
     if (!exists) {
-      alert('La ruta seleccionada no existe.');
+      alert('La ruta seleccionada no existe o no esta disponible.');
       return;
     }
     shortcuts.push({ id: `sc_${Date.now()}_${Math.random().toString(16).slice(2)}`, name, type: 'exe', path, usageCount: 0, lastUsed: null });
@@ -402,7 +432,7 @@ addMenu.addEventListener('click', async (e) => {
     if (!path) return;
     const exists = await window.api.validatePath(path);
     if (!exists) {
-      alert('La ruta seleccionada no existe.');
+      alert('La ruta seleccionada no existe o no esta disponible.');
       return;
     }
     shortcuts.push({ id: `sc_${Date.now()}_${Math.random().toString(16).slice(2)}`, name, type: 'folder', path, usageCount: 0, lastUsed: null });
@@ -440,7 +470,7 @@ window.api.onMenuAction(async ({ action, index }) => {
         validUrl = false;
       }
       if (!validUrl) {
-        alert('URL no valida. Debe empezar con http:// o https://');
+        alert('La direccion no es valida. Debe empezar con http:// o https://');
         return;
       }
       item.url = url;
@@ -454,7 +484,7 @@ window.api.onMenuAction(async ({ action, index }) => {
     if (path) {
       const exists = await window.api.validatePath(path);
       if (!exists) {
-        alert('La ruta seleccionada no existe.');
+        alert('La ruta seleccionada no existe o no esta disponible.');
         return;
       }
       item.path = path;
@@ -492,6 +522,7 @@ window.api.onMenuAction(async ({ action, index }) => {
   diagnostic = await window.api.getDiagnostic();
   chromeProfileList = await window.api.getChromeProfiles();
   keepInTrayToggle.checked = settings.keepInTray;
+  startWithWindowsToggle.checked = settings.launchOnStartup === true;
   applyTheme(settings.theme);
   render();
   renderMaintenance();
@@ -508,6 +539,11 @@ keepInTrayToggle.addEventListener('change', async () => {
   await window.api.saveSettings(settings);
 });
 
+startWithWindowsToggle.addEventListener('change', async () => {
+  settings.launchOnStartup = startWithWindowsToggle.checked;
+  await window.api.saveSettings(settings);
+});
+
 themeToggle.addEventListener('click', async () => {
   settings.theme = settings.theme === 'dark' ? 'light' : 'dark';
   applyTheme(settings.theme);
@@ -516,7 +552,7 @@ themeToggle.addEventListener('click', async () => {
 
 checkUpdates.addEventListener('click', async () => {
   if (updateState === 'downloaded') {
-    const ok = await openConfirm('Hay una actualizacion lista. Se reiniciara la app para instalarla. Continuar?');
+    const ok = await openConfirm('Hay una actualizacion lista. La app se cerrara para instalarla. Continuar?');
     if (!ok) return;
     await window.api.installUpdate();
     return;
@@ -579,7 +615,7 @@ runChromeCleanup.addEventListener('click', async () => {
     .filter(Boolean);
 
   if (selectedProfiles.length === 0) {
-    alert('Selecciona al menos un perfil de Chrome.');
+    alert('Selecciona al menos un perfil de Chrome para limpiar.');
     return;
   }
 
@@ -593,9 +629,10 @@ runChromeCleanup.addEventListener('click', async () => {
     profiles: selectedProfiles
   };
 
-  const ok = await openConfirm('Limpiar los datos seleccionados de Chrome? Cierra Chrome para mejores resultados.');
+  const ok = await openConfirm('Deseas iniciar la limpieza de Chrome? Se recomienda cerrar Chrome primero.');
   if (!ok) return;
 
   await window.api.runChromeCleanup(options);
   await refreshChromeStatus();
 });
+

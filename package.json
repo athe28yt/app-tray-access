@@ -8,7 +8,10 @@
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "release:patch": "npm version patch -m \"release %s\" && git push origin HEAD --follow-tags",
+    "release:minor": "npm version minor -m \"release %s\" && git push origin HEAD --follow-tags",
+    "release:major": "npm version major -m \"release %s\" && git push origin HEAD --follow-tags"
   },
   "devDependencies": {
     "electron": "^31.0.0",
@@ -33,4 +36,3 @@
     ]
   }
 }
-

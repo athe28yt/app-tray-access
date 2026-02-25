@@ -9,19 +9,22 @@
 </head>
 <body>
   <header>
-    <h1>Accesos directos</h1>
+    <div class="brand">
+      <h1>Mis accesos</h1>
+      <p>Abre programas, carpetas y enlaces en un clic.</p>
+    </div>
     <div class="header-actions">
       <button id="themeToggle" class="run-btn" title="Cambiar tema">Tema</button>
       <div class="update-wrap">
-        <button id="checkUpdates" class="run-btn" title="Verificar actualizaciones">Verificar version</button>
-        <span id="updateStatus" class="update-status">—</span>
+        <button id="checkUpdates" class="run-btn" title="Buscar actualizaciones">Buscar actualizaciones</button>
+        <span id="updateStatus" class="update-status">-</span>
       </div>
       <div class="add-wrap">
         <button id="addBtn" title="Agregar acceso directo">+</button>
         <div id="addMenu" class="add-menu hidden">
-          <button data-add="exe">Agregar .exe o app</button>
-          <button data-add="url">Agregar URL</button>
-          <button data-add="folder">Agregar carpeta</button>
+          <button data-add="exe">Programa (.exe)</button>
+          <button data-add="url">Pagina web</button>
+          <button data-add="folder">Carpeta</button>
         </div>
       </div>
     </div>
@@ -30,15 +33,28 @@
   <main>
     <div class="container">
       <nav class="tabs">
-        <button id="tabShortcuts" class="tab active">Accesos</button>
-        <button id="tabMaintenance" class="tab">Mantenimiento</button>
+        <button id="tabShortcuts" class="tab active">Mis accesos</button>
+        <button id="tabMaintenance" class="tab">Cuidado del equipo</button>
       </nav>
       <section class="settings">
         <label class="switch">
           <input id="keepInTrayToggle" type="checkbox" />
           <span class="slider"></span>
-          <span>Mantener en segundo plano (bandeja)</span>
+          <span>Dejar la app activa en segundo plano</span>
         </label>
+        <label class="switch">
+          <input id="startWithWindowsToggle" type="checkbox" />
+          <span class="slider"></span>
+          <span>Iniciar con Windows</span>
+        </label>
+      </section>
+      <section class="quick-help">
+        <div class="help-title">Guia rapida</div>
+        <div class="help-grid">
+          <div>1) Pulsa <strong>+</strong> para agregar un acceso.</div>
+          <div>2) Pulsa <strong>Iniciar</strong> para abrirlo.</div>
+          <div>3) Clic derecho para editar, mover o eliminar.</div>
+        </div>
       </section>
       <section id="shortcutsPanel">
         <ul id="list"></ul>
@@ -46,7 +62,7 @@
       <section id="maintenancePanel" class="hidden">
         <div class="diagnostic-card">
           <div class="output-header">
-            <div>Diagnostico</div>
+            <div>Diagnostico rapido</div>
             <button id="refreshDiagnostic" class="run-btn">Actualizar</button>
           </div>
           <div id="diagnosticMeta" class="diagnostic-meta"></div>
@@ -54,13 +70,13 @@
         </div>
         <div class="chrome-card">
           <div class="output-header">
-            <div>Limpiar Chrome</div>
+            <div>Limpieza de Chrome</div>
           </div>
           <div class="chrome-profiles">
-            <div class="profiles-title">Perfiles</div>
+            <div class="profiles-title">Perfiles de Chrome</div>
             <div id="chromeProfiles" class="profiles-list"></div>
             <div id="chromeRunningWarn" class="chrome-warning hidden">
-              Chrome esta en ejecucion. Cierra Chrome para mejores resultados.
+              Chrome esta abierto. Cierralo para limpiar mejor.
             </div>
           </div>
           <div class="chrome-options">
@@ -96,16 +112,16 @@
             </label>
           </div>
           <div id="chromeWarning" class="chrome-warning hidden">
-            Aviso: limpiar sesiones puede cerrar sesion en sitios y perder pestanas abiertas.
+            Aviso: al limpiar sesiones puedes cerrar cuentas y perder pestanas abiertas.
           </div>
-          <button id="runChromeCleanup" class="run-btn">Limpiar Chrome</button>
+          <button id="runChromeCleanup" class="run-btn start-btn">Iniciar limpieza</button>
         </div>
         <div id="maintenanceList" class="maintenance-list"></div>
         <div class="maintenance-output hidden" id="maintenanceOutputWrap">
           <div class="output-header">
             <div>Salida</div>
             <div class="output-actions">
-              <button id="toggleOutput" class="run-btn">Mostrar salida</button>
+              <button id="toggleOutput" class="run-btn">Mostrar detalles</button>
               <button id="clearOutput" class="run-btn">Limpiar</button>
             </div>
           </div>
@@ -132,7 +148,7 @@
       <div id="confirmText"></div>
       <div class="modal-actions">
         <button id="confirmCancel">Cancelar</button>
-        <button id="confirmOk">Ejecutar</button>
+        <button id="confirmOk">Iniciar</button>
       </div>
     </div>
   </div>
